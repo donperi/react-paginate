@@ -17,6 +17,7 @@ export default class PaginationBoxView extends Component {
     nextLabel             : PropTypes.node,
     breakLabel            : PropTypes.node,
     clickCallback         : PropTypes.func,
+    mountCallback         : PropTypes.func,
     initialSelected       : PropTypes.number,
     forceSelected         : PropTypes.number,
     containerClassName    : PropTypes.string,
@@ -57,7 +58,7 @@ export default class PaginationBoxView extends Component {
   componentDidMount() {
     // Call the callback with the initialSelected item:
     if (typeof(this.props.initialSelected) !== 'undefined') {
-      this.callCallback(this.props.initialSelected);
+      this.mountCallCallback(this.props.initialSelected);
     }
   }
 
@@ -96,6 +97,13 @@ export default class PaginationBoxView extends Component {
     if (typeof(this.props.clickCallback) !== "undefined" &&
         typeof(this.props.clickCallback) === "function") {
       this.props.clickCallback({selected: selectedItem});
+    }
+  };
+
+  mountCallCallback = (selectedItem) => {
+    if (typeof(this.props.mountCallback) !== "undefined" &&
+        typeof(this.props.mountCallback) === "function") {
+      this.props.mountCallback({selected: selectedItem});
     }
   };
 
